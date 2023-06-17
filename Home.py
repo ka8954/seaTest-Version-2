@@ -6,7 +6,7 @@ import pandas as pd
 def main():
     slt.set_page_config(page_title="seaTest - Instructor Interface", page_icon="✨")
     slt.sidebar.title("")
-    options = slt.sidebar.radio('Pages', options=("Entry","Retreive"))
+    options = slt.sidebar.radio('Pages', options=("Entry", "Retreive"))
 
     def btn_click():
         print("Option Selected")
@@ -25,9 +25,11 @@ def main():
 
         slt.title('TEST SEATING ARRANGEMENT')
         slt.subheader('DEPT OF NETWORKING AND COMMUNICATIONS')
-        slt.text('This System Allocates Seating for Students belonging to Cloud Computing, Cyber Security, IT, IOT, Networking Specializations')
+        slt.text(
+            'This System Allocates Seating for Students belonging to Cloud Computing, Cyber Security, IT, IOT, Networking Specializations')
         slt.write('# Type Of Exam')
-        radio_btr = slt.selectbox(' ',options=("Choose an One", "Internals", "University Practical", "University Theory"))
+        radio_btr = slt.selectbox(' ',
+                                  options=("Choose an One", "Internals", "University Practical", "University Theory"))
         slt.write('# Enter the Details')
         id = slt.text_input('USER ID', max_chars=15)
         UNAME = slt.text_input('USERNAME', max_chars=6)
@@ -61,8 +63,34 @@ def main():
             co5.info('Date Of Exam ')
             co6.success(exam_date)
 
-    if options=='Entry':
+    def retreive():
+        col1, col2, col3 = slt.columns([4.2, 9, 2])
+
+        with col1:
+            slt.write("")
+
+        with col2:
+            slt.image("srm.jpg", width=300)
+            slt.write('Developed By Kaarthik Sai Charan Ayineni')
+
+        with col3:
+            slt.write("")
+        slt.header('Student Wise Seating Arrangement')
+        slt.write("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
+        doc = slt.file_uploader("Upload Your Excel Doc Here", type=["csv"])
+        if doc is not None:
+            df = pd.read_csv(doc)
+            slt.dataframe(df)
+
+
+
+
+    if options == 'Entry':
         entry()
+
+    if options == 'Retreive':
+        retreive()
 
 
 if __name__ == '__main__':
