@@ -76,8 +76,10 @@ def main():
 
         if slt.button("SUBMIT"):
 
-            deta = Deta(slt.secrets["d0lc5a51pd8_CRVUTN7yCBRhuBC6ZnwUPctUTEoyG61L"])
-            db = deta.Base("seat-DB")
+            deta_key = "d0lc5a51pd8_CRVUTN7yCBRhuBC6ZnwUPctUTEoyG61L"
+
+            deta = Deta(deta_key)
+            db = deta.Base("arrangement")
             db.put({"ID":id, "Username":UNAME, "Password":PWORD, "Seat":seat, "Setno":Setno})
             slt.success("Details Saved")
 
