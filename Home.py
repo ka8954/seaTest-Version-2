@@ -84,26 +84,26 @@ def main():
             l1 = []
             l2 = []
             l3 = []
-            l1.append(id)
-            l2.append(UNAME)
-            l3.append(seat)
+            
+            if id is not None:
+                l1.append(id)
+            if UNAME is not None:
+                l2.append(UNAME)
+            if seat is not None:
+                l3.append(seat)
 
+            if id in l1:
+                slt.error("Duplicate Entry For ID")
 
-            if id & UNAME & PWORD & seat:
-                
-                if id in l1:
-                    slt.error("Duplicate Entry For ID")
+            if UNAME in l2:
+                slt.error("Duplicate Entry For Username")
 
-                if UNAME in l2:
-                    slt.error("Duplicate Entry For Username")
+            if seat in l3:
+                slt.error("Seat No Already Allocated")
 
-                if seat in l3:
-                    slt.error("Seat No Already Allocated")
-
-                if id not in l1 & UNAME not in l2 & seat not in l3:
-                    db.put({"ID": id, "Username": UNAME, "Password": PWORD, "Seat": seat, "Setno": Setno})
-                    slt.success("Details Saved")
-                
+            if id not in l1 & UNAME not in l2 & seat not in l3:
+                db.put({"ID": id, "Username": UNAME, "Password": PWORD, "Seat": seat, "Setno": Setno})
+                slt.success("Details Saved")
 
 
     if options == 'Entry':
