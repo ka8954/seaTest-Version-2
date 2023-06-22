@@ -52,6 +52,9 @@ def main():
         print(exam_date)
 
         if slt.button("SUBMIT"):
+            
+            conn = slt.experimental_connection('mysql', type='sql')
+            df = conn.query("INSERT INTO seat (ID,USERNAME,Password, Sysno, Setno, ExamDate) VALUES(id,UNAME,PWORD,seat,Setno,exam_date);")
             slt.success("Details Saved")
 
             co1, co2 = slt.columns(2)
