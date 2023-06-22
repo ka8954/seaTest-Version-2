@@ -89,7 +89,7 @@ def main():
             l3.append(seat)
 
 
-            if (id & UNAME & PWORD & seat & Setno) is not None:
+            if id & UNAME & PWORD & seat & Setno is not None:
 
                 if id in l1:
                     slt.error("Duplicate Entry For ID")
