@@ -53,7 +53,7 @@ def main():
             'This System Allocates Seating for Students belonging to Cloud Computing, Cyber Security, IT, IOT, Networking Specializations')
         slt.write('# Type Of Exam')
         radio_btr = slt.selectbox(' ',
-                                  options=("Choose an One", "Internals", "University Practical", "University Theory"))
+                                  options=("Choose an One", "Internals", "University Theory"))
         slt.write('# Enter the Details')
         id = slt.text_input('USER ID', max_chars=15)
         UNAME = slt.text_input('USERNAME', max_chars=6)
