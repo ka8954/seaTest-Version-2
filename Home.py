@@ -1,16 +1,38 @@
 import streamlit as slt
 import random
 import pandas as pd
-import sqlalchemy
-import mysqlconnect
+from deta import Deta
+
+print("Connection Established")
+
 
 def main():
     slt.set_page_config(page_title="seaTest - Instructor Interface", page_icon="✨")
     slt.sidebar.title("")
-    options = slt.sidebar.radio('Pages', options=("Entry", "Retreive"))
+    options = slt.sidebar.radio('Pages', options=("Entry", "Retreival"))
 
     def btn_click():
         print("Option Selected")
+
+    def retreive():
+        col1, col2, col3 = slt.columns([4.2, 9, 2])
+
+        with col1:
+            slt.write("")
+
+        with col2:
+            slt.image("srm.jpg", width=300)
+            slt.write('Developed By Kaarthik Sai Charan Ayineni')
+
+        with col3:
+            slt.write("")
+        slt.header('Student Wise Seating Arrangement')
+        slt.write("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
+        doc = slt.file_uploader("Upload Your Excel Doc Here", type=["csv"])
+        if doc is not None:
+            df = pd.read_csv(doc)
+            slt.dataframe(df)
 
     def entry():
         col1, col2, col3 = slt.columns([4.2, 9, 2])
@@ -53,10 +75,12 @@ def main():
         print(exam_date)
 
         if slt.button("SUBMIT"):
-            
-            conn = slt.experimental_connection('mysql', type='sql')
-            df = conn.query("INSERT INTO seat (ID,USERNAME,Password, Sysno, Setno, ExamDate) VALUES(id,UNAME,PWORD,seat,Setno,exam_date);")
+
+            deta = Deta(slt.secrets["d0lc5a51pd8_CRVUTN7yCBRhuBC6ZnwUPctUTEoyG61L"])
+            db = deta.Base("seat-DB")
+            db.put({"ID":id, "Username":UNAME, "Password":PWORD, "Seat":seat, "Setno":Setno})
             slt.success("Details Saved")
+
 
             co1, co2 = slt.columns(2)
             co3, co4 = slt.columns(2)
@@ -68,33 +92,10 @@ def main():
             co5.info('Date Of Exam ')
             co6.success(exam_date)
 
-    def retreive():
-        col1, col2, col3 = slt.columns([4.2, 9, 2])
-
-        with col1:
-            slt.write("")
-
-        with col2:
-            slt.image("srm.jpg", width=300)
-            slt.write('Developed By Kaarthik Sai Charan Ayineni')
-
-        with col3:
-            slt.write("")
-        slt.header('Student Wise Seating Arrangement')
-        slt.write("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-
-        doc = slt.file_uploader("Upload Your Excel Doc Here", type=["csv"])
-        if doc is not None:
-            df = pd.read_csv(doc)
-            slt.dataframe(df)
-
-
-
-
     if options == 'Entry':
         entry()
 
-    if options == 'Retreive':
+    if options == 'Retreival':
         retreive()
 
 
