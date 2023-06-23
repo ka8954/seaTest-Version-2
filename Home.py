@@ -80,34 +80,19 @@ def main():
 
             deta = Deta(detakey)
             db = deta.Base("seat")
-
-            l1 = []
-            l2 = []
-            l3 = []
-
-            if id is not None:
-                if id not in l1:
-                    l1.append(id)
-                    db.put({"ID": id})
-                if id in l1:
-                    slt.error("Duplicate Entry For ID")
-
-            if UNAME is not None:
-                if UNAME not in l2:
-                    l2.append(UNAME)
-                    db.put({"Username": UNAME})
-                if UNAME in l2:
-                    slt.error("Duplicate Entry For Username")
-
-            if seat is not None:
-                if seat not in l3:
-                    l3.append(seat)
-                    db.put({"Password": PWORD, "Seat": seat, "Setno": Setno})
-                    slt.success("Details Saved")
-                if seat in l3:
-                    slt.error("Seat No Already Allocated")
+            db.put({"ID":id, "Username":UNAME, "Password":PWORD, "Seat":seat, "Setno":Setno})
+            slt.success("Details Saved")
 
 
+            co1, co2 = slt.columns(2)
+            co3, co4 = slt.columns(2)
+            co5, co6 = slt.columns(2)
+            co1.info('Seat No ')
+            co2.success(seat)
+            co3.info('Set No ')
+            co4.success(Setno)
+            co5.info('Date Of Exam ')
+            co6.success(exam_date)
 
     if options == 'Entry':
         entry()
