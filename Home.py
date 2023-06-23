@@ -53,7 +53,7 @@ def main():
             'This System Allocates Seating for Students belonging to Cloud Computing, Cyber Security, IT, IOT, Networking Specializations')
         slt.write('# Type Of Exam')
         radio_btr = slt.selectbox(' ',
-                                  options=("Choose an One", "Internals", "University Theory"))
+                                  options=("Choose an One", "Internals", "University Practical", "University Theory"))
         slt.write('# Enter the Details')
         id = slt.text_input('USER ID', max_chars=15)
         UNAME = slt.text_input('USERNAME', max_chars=6)
@@ -80,19 +80,32 @@ def main():
 
             deta = Deta(detakey)
             db = deta.Base("seat")
-            db.put({"ID":id, "Username":UNAME, "Password":PWORD, "Seat":seat, "Setno":Setno})
-            slt.success("Details Saved")
 
+            l1 = []
+            l2 = []
+            l3 = []
 
-            co1, co2 = slt.columns(2)
-            co3, co4 = slt.columns(2)
-            co5, co6 = slt.columns(2)
-            co1.info('Seat No ')
-            co2.success(seat)
-            co3.info('Set No ')
-            co4.success(Setno)
-            co5.info('Date Of Exam ')
-            co6.success(exam_date)
+            if id is not None:
+                if id not in l1:
+                    l1.append(id)
+                else:
+                    slt.error("Duplicate Entry For ID")
+                    
+            if UNAME is not None:
+                if UNAME not in l2:
+                    l2.append(UNAME)
+                else:
+                    slt.error("Duplicate Entry For Username")
+                    
+            if seat is not None:
+                if seat not in l3:
+                    l3.append(seat)
+                    db.put({"ID": id, "Username": UNAME, "Password": PWORD, "Seat": seat, "Setno": Setno})
+                    slt.success("Details Saved")
+                else:
+                    slt.error("Seat No Already Allocated")
+                    
+
 
     if options == 'Entry':
         entry()
