@@ -88,19 +88,21 @@ def main():
             if id is not None:
                 if id not in l1:
                     l1.append(id)
+                    db.put({"ID": id})
                 if id in l1:
                     slt.error("Duplicate Entry For ID")
 
             if UNAME is not None:
                 if UNAME not in l2:
                     l2.append(UNAME)
+                    db.put({"Username": UNAME})
                 if UNAME in l2:
                     slt.error("Duplicate Entry For Username")
 
             if seat is not None:
                 if seat not in l3:
                     l3.append(seat)
-                    db.put({"ID": id, "Username": UNAME, "Password": PWORD, "Seat": seat, "Setno": Setno})
+                    db.put({"Password": PWORD, "Seat": seat, "Setno": Setno})
                     slt.success("Details Saved")
                 if seat in l3:
                     slt.error("Seat No Already Allocated")
