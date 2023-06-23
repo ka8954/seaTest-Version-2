@@ -80,19 +80,19 @@ def main():
 
             deta = Deta(detakey)
             db = deta.Base("seat")
-            db.put({"ID":id, "Username":UNAME, "Password":PWORD, "Seat":seat, "Setno":Setno})
-            slt.success("Details Saved")
 
+            la = []
+            lb = []
+            lc = []
 
-            co1, co2 = slt.columns(2)
-            co3, co4 = slt.columns(2)
-            co5, co6 = slt.columns(2)
-            co1.info('Seat No ')
-            co2.success(seat)
-            co3.info('Set No ')
-            co4.success(Setno)
-            co5.info('Date Of Exam ')
-            co6.success(exam_date)
+            if id:
+                if UNAME:
+                    if seat:
+                        if id not in la:
+                            if UNAME not in lb:
+                                if seat not in lc:
+                                    db.put({"ID": id, "Username": UNAME, "Password": PWORD, "Seat": seat, "Setno": Setno})
+                                    slt.success("Details Saved")
 
     if options == 'Entry':
         entry()
@@ -103,3 +103,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
